@@ -18,7 +18,8 @@
 
 ## Prerequisite
 
-> - Ruby needs to be installed in system. For window `WSL 2` will also work.
+> - Ruby needs to be installed in system.
+> - For window `WSL 2` Or partitioned `Ubuntu` Or `Virtual Machine` will also work.
 > - Rails is required as the framework.
 > - `Node JS` and `Yarn` required as dependancies.
 
