@@ -15,10 +15,10 @@
 - Clone the repository to your local machine.
     - **`https://github.com/RitobrotoMukherjee/ror-blog.git`**
     - **`cd ror-blog`**
-    - **bundle install**
+    - **`bundle install`**
     - **Before running below commands update [config/database.yml](./config/database.yml) with your local `DB` credentials. Then run:**
-      - **rake db:create**
-      - **rake db:migrate**
+      - **`rake db:create`**
+      - **`rake db:migrate`**
 
 ## Prerequisite
 
