@@ -15,10 +15,15 @@
 - Clone the repository to your local machine.
     - **`https://github.com/RitobrotoMukherjee/ror-blog.git`**
     - **`cd ror-blog`**
+    - **bundle install**
+    - **Before running below commands update [config/database.yml](./config/database.yml) with your local `DB` credentials. Then run:**
+      - **rake db:create**
+      - **rake db:migrate**
 
 ## Prerequisite
 
-> - Ruby needs to be installed in system. For window `WSL 2` will also work.
+> - Ruby needs to be installed in system.
+> - For window `WSL 2` Or partitioned `Ubuntu` Or `Virtual Machine` will also work.
 > - Rails is required as the framework.
 > - `Node JS` and `Yarn` required as dependancies.
 
