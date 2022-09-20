@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-
   def index
     @posts = Post.joins(:author).where(author: { id: params[:user_id] })
   end
