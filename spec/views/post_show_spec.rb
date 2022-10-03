@@ -4,10 +4,10 @@ RSpec.describe 'Post show', type: :feature do
     # rubocop: disable Layout/LineLength
 
     @user = User.create(name: 'Rito',
-                              photo: 'https://www.thoughtco.com/thmb/0I-Uw-0rcc6MUzcZJauNGKR9JzA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/male-computer-programmer-using-laptop-at-desk-in-office-755650739-5c5bb32346e0fb0001f24d3d.jpg', bio: 'Teacher from Mexico.', posts_counter: 0)
+                        photo: 'https://www.thoughtco.com/thmb/0I-Uw-0rcc6MUzcZJauNGKR9JzA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/male-computer-programmer-using-laptop-at-desk-in-office-755650739-5c5bb32346e0fb0001f24d3d.jpg', bio: 'Teacher from Mexico.', posts_counter: 0)
 
     @post = Post.create(author: @user, title: 'Hello', text: 'This is my first post', comments_conter: 0,
-                              likes_counter: 0)
+                        likes_counter: 0)
     # rubocop: enable Layout/LineLength
 
     @first_comment = Comment.create(post: @post, author: @user, text: 'Hi Rito!')
