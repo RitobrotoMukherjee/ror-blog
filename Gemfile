@@ -49,7 +49,14 @@ gem 'bootsnap', require: false
 # gem "image_processing", "~> 1.2"
 gem 'rubocop', '>= 1.0', '< 2.0'
 
-gem 'bullet'
+# Add devise gem for authentication
+
+gem 'devise'
+
+# Add cancancan for authorization
+
+gem 'cancancan', '~> 3.3'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
@@ -59,13 +66,6 @@ group :development, :test do
 
   gem 'rails-controller-testing'
   gem 'rspec-rails'
-
-  # Capybara, the library that allows us to interact with the browser using Ruby
-  gem 'capybara'
-
-  # The following gems aids with the nuts and bolts
-  # of interacting with the browser.
-  gem 'webdrivers'
 
   gem 'shoulda-matchers', '~> 5.0'
 end
@@ -83,5 +83,7 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
