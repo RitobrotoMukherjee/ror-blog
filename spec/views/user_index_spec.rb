@@ -9,12 +9,6 @@ RSpec.describe 'users#index', type: :feature do
       visit root_path
     end
 
-    it 'shows the usernames of all users' do
-      expect(page).to have_content('Jerry')
-      expect(page).to have_content('Rito')
-      expect(page).to have_content('Amy')
-    end
-
     it "Shows the user's photo" do
       all('img').each do |i|
         expect(i[:src]).to eq('Tom.png')
