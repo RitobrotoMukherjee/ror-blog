@@ -1,43 +1,31 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
-RSpec.describe 'Users index', type: :feature do
-  before(:each) do
-    # rubocop: disable Layout/LineLength
-    @first_user = User.create(name: 'Tom',
-                              photo: 'https://www.thoughtco.com/thmb/0I-Uw-0rcc6MUzcZJauNGKR9JzA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/male-computer-programmer-using-laptop-at-desk-in-office-755650739-5c5bb32346e0fb0001f24d3d.jpg', bio: 'Teacher from Isreal.', posts_counter: 0)
-    @second_user = User.create(name: 'Rito',
-                               photo: 'https://image.benq.com/is/image/benqco/monitor-for-programmer-1?$ResponsivePreset$&wid=1468', bio: 'Teacher from India.', posts_counter: 0)
-    @third_user = User.create(name: 'ABC',
-                              photo: 'https://www.mooc.org/hs-fs/hubfs/learn-programming-career-jpg.jpeg?width=500&name=learn-programming-career-jpg.jpeg', bio: 'Teacher from USA.', posts_counter: 0)
-    # rubocop: enable Layout/LineLength
-    visit users_path
-  end
+RSpec.describe 'users#index', type: :feature do
   describe 'user index page' do
-    it 'shows the usernames of all users' do
-      expect(page).to have_content('Tom')
-      expect(page).to have_content('Rito')
-      expect(page).to have_content('ABC')
+    before(:each) do
+      @user1 = User.create(name: 'Rito', photo: 'Tom.png', bio: 'bio', posts_counter: 0)
+      @user2 = User.create(name: 'Amy', bio: 'bio',photo: 'Tom.png')
+      @user3 = User.create(name: 'Jerry', bio: 'bio',photo: 'Tom.png')
+
+      visit root_path
     end
-    it 'The images links are not broken' do
-      page.all('#img').each do |img|
-        visit img[:src]
-        page.status_code.should be 200
+
+    it 'shows the usernames of all users' do
+      expect(page).to have_content('Jerry')
+      expect(page).to have_content('Rito')
+      expect(page).to have_content('Amy')
+    end
+    
+    it "Shows the user's photo" do
+      all('img').each do |i|
+        expect(i[:src]).to eq('Tom.png')
       end
     end
-    it 'shows the profile picture for each user' do
-      expect(page).to have_xpath("//img[contains(@src,'https://www.thoughtco.com/thmb/0I-Uw-0rcc6MUzcZJauNGKR9JzA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/male-computer-programmer-using-laptop-at-desk-in-office-755650739-5c5bb32346e0fb0001f24d3d.jpg')]")
-      expect(page).to have_xpath("//img[contains(@src,'https://image.benq.com/is/image/benqco/monitor-for-programmer-1?$ResponsivePreset$&wid=1468')]")
-      expect(page).to have_xpath("//img[contains(@src,'https://www.mooc.org/hs-fs/hubfs/learn-programming-career-jpg.jpeg?width=500&name=learn-programming-career-jpg.jpeg')]")
-    end
+
+    
     it 'shows the number of posts each user has written' do
       expect(page).to have_content('0')
-    end
-    it 'When I click on a user, I am redirected to that user\'s show page' do
-      click_link 'Tom'
-      expect(page).to have_current_path user_path(@first_user)
-    end
-    it 'When I click on a user, I am redirected to that user\'s show page' do
-      click_link 'Rito'
-      expect(page).to have_current_path user_path(@second_user)
     end
   end
 end
