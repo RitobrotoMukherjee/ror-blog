@@ -1,58 +1,69 @@
 require 'rails_helper'
-RSpec.describe 'Post index', type: :feature do
-  before(:each) do
-    # rubocop: disable Layout/LineLength
+RSpec.describe 'posts#index', type: :feature do
+  describe 'Post spec' do
+    before(:each) do
+      @user1 = User.create(name: 'Rito', photo: 'Tom.png', bio: 'bio', posts_counter: 0)
 
-    @user = User.create(name: 'Rito',
-                        photo: 'https://www.thoughtco.com/thmb/0I-Uw-0rcc6MUzcZJauNGKR9JzA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/male-computer-programmer-using-laptop-at-desk-in-office-755650739-5c5bb32346e0fb0001f24d3d.jpg', bio: 'Teacher from Mexico.', posts_counter: 0)
+      @post1 = Post.create(title: 'First Post', text: 'This is my first post', comments_conter: 0, likes_counter: 0,
+                          author: @user1)
+      @post2 = Post.create(title: 'Second Post', text: 'This is my second post', comments_conter: 0, likes_counter: 0,
+                          author: @user1)
+      @post3 = Post.create(title: 'Third Post', text: 'This is my third post', comments_conter: 0, likes_counter: 0,
+                          author: @user1)
 
-    @post = Post.create(author: @user, title: 'Hello', text: 'This is my first post', comments_conter: 0,
-                        likes_counter: 0)
-    # rubocop: enable Layout/LineLength
+      @comment1 = Comment.create(text: 'Good job!', author: User.first,
+                                post: Post.first)
+      @comment2 = Comment.create(text: 'Keep it up!', author: User.first, post: Post.first)
+      @comment3 = Comment.create(text: 'Congratulations!', author: User.first, post: Post.first)
 
-    @first_comment = Comment.create(post: @post, author: @user, text: 'Hi Rito!')
-    @second_comment = Comment.create(post: @post, author: @user, text: 'Hola Rito!')
-    @third_comment = Comment.create(post: @post, author: @user, text: 'Bonjour Rito!')
-
-    visit user_posts_path(@user)
-  end
-  describe 'post index page' do
-    it 'shows the user profile picture' do
-      expect(page).to have_xpath("//img[contains(@src,'https://www.thoughtco.com/thmb/0I-Uw-0rcc6MUzcZJauNGKR9JzA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/male-computer-programmer-using-laptop-at-desk-in-office-755650739-5c5bb32346e0fb0001f24d3d.jpg')]")
+      visit(user_posts_path(@user1.id))
     end
 
-    it 'shows the username' do
-      expect(page).to have_content @user.name
+    it "shows user's profile picture" do
+      all('img').each do |i|
+        expect(i[:src]).to eq('Tom.png')
+      end
     end
 
-    it 'shows the number of posts each user has written' do
-      expect(@user.posts_counter).to eq(3)
+    it 'shows the users username' do
+      expect(page).to have_content('Rito')
     end
 
-    it 'shows the post\'s title' do
-      expect(page).to have_content @post.title
+    it 'shows number of posts of user has written' do
+      post = Post.all
+      expect(post.size).to eql(3)
     end
 
-    it 'shows some of the post\'s body' do
-      expect(page).to have_content 'first post'
+    it 'shows number of posts by user' do
+      user = User.first
+      expect(page).to have_content(user.posts_counter)
     end
 
-    it 'shows the first comments on a post' do
-      expect(page).to have_content @first_comment.text
+    it 'shows posts title' do
+      expect(page).to have_content('First Post')
     end
 
-    it 'shows how many comments a post has' do
-      expect(@post.comments_conter).to eq(6)
+    it 'can see some of the post detail' do
+      expect(page).to have_content 'This is my first post'
     end
 
-    it 'When I click on a post, it redirects me to that post\'s show page' do
-      click_link @post.title
-      expect(page).to have_current_path user_post_path(@user, @post)
+    it 'can see the first comment on a post' do
+      expect(page).to have_content 'Good job!'
+    end
+
+    it 'can see how many comments a post has.' do
+      post = Post.first
+      expect(page).to have_content(post.comments_conter)
+    end
+
+    it 'can see how many likes a post has.' do
+      post = Post.first
+      expect(page).to have_content(post.likes_counter)
+    end
+
+    it "redirects the user to the post's show page after clickin on it" do
+      click_link 'First Post'
+      expect(page).to have_current_path user_post_path(@post1.author_id, @post1)
     end
   end
 end
-
-# I can see the first comments on a post.
-# I can see how many comments a post has.
-# I can see how many likes a post has.
-# When I click on a post, it redirects me to that post's show page.
