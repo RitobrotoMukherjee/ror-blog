@@ -1,57 +1,57 @@
 require 'rails_helper'
-RSpec.describe 'Post show', type: :feature do
-  before(:each) do
-    # rubocop: disable Layout/LineLength
-
-    @user = User.create(name: 'Rito',
-                        photo: 'https://www.thoughtco.com/thmb/0I-Uw-0rcc6MUzcZJauNGKR9JzA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/male-computer-programmer-using-laptop-at-desk-in-office-755650739-5c5bb32346e0fb0001f24d3d.jpg', bio: 'Teacher from Mexico.', posts_counter: 0)
-
-    @post = Post.create(author: @user, title: 'Hello', text: 'This is my first post', comments_conter: 0,
-                        likes_counter: 0)
-    # rubocop: enable Layout/LineLength
-
-    @first_comment = Comment.create(post: @post, author: @user, text: 'Hi Rito!')
-
-    @second_comment = Comment.create(post: @post, author: @user, text: 'Hola Rito!')
-    @third_comment = Comment.create(post: @post, author: @user, text: 'Salam Rito!')
-
-    visit user_posts_path(@user, @post)
-  end
-
+RSpec.describe 'post#show', type: :feature do
   describe 'post show page' do
-    it 'shows the post title' do
-      expect(page).to have_content @post.title
+    before(:each) do
+      @user = User.create(name: 'Rito', photo: 'Tom.png', bio: 'bio', posts_counter: 0)
+
+      @post1 = Post.create(title: 'First Post', text: 'This is my first post', comments_conter: 0, likes_counter: 0,
+                           author: @user)
+      @post2 = Post.create(title: 'Second Post', text: 'This is my second post', comments_conter: 0, likes_counter: 0,
+                           author: @user)
+      @post3 = Post.create(title: 'Third Post', text: 'This is my third post', comments_conter: 0, likes_counter: 0,
+                           author: @user)
+      @post4 = Post.create(title: 'Fourth Post', text: 'This is my fourth post', comments_conter: 0, likes_counter: 0,
+                           author: @user)
+
+      @comment1 = Comment.create(text: 'Good job!', author: User.first, post: Post.first)
+      @comment2 = Comment.create(text: 'Keep it up!', author: User.first, post: Post.first)
+      @comment3 = Comment.create(text: 'Congratulations!', author: User.first, post: Post.first)
+
+      visit user_post_path(@user, @post1)
     end
 
-    it 'shows who wrote the post' do
-      expect(page).to have_content @post.author.name
+    it 'shows posts title' do
+      expect(page).to have_content('First Post')
     end
 
-    it 'shows how many comments it has' do
-      expect(@post.comments_conter).to eq(3)
+    it 'shows the person who wrote the post' do
+      expect(page).to have_content('Rito')
     end
 
-    it 'shows how many likes it has' do
-      expect(@post.likes_counter).to eq(0)
+    it 'shows number of comments' do
+      post = Post.first
+      expect(page).to have_content(post.comments_conter)
     end
 
-    it 'shows the post body' do
-      expect(page).to have_content @post.text
+    it 'shows number of likes' do
+      post = Post.first
+      expect(page).to have_content(post.likes_counter)
     end
 
-    it 'showd the username of each commentor' do
-      expect(page).to have_content @first_comment.author.name
-      expect(page).to have_content @second_comment.author.name
-      expect(page).to have_content @third_comment.author.name
+    it 'can see the post\'s body.' do
+      expect(page).to have_content('Good job!')
     end
 
-    it 'shows the comment each commentor left' do
-      expect(page).to have_content @first_comment.text
-      expect(page).to have_content @second_comment.text
-      expect(page).to have_content @third_comment.text
+    it 'can see the username of each commentor.' do
+      post = Post.first
+      comment = post.comments.first
+      expect(page).to have_content(comment.author.name)
+    end
+
+    it 'can see the comments of each commentor.' do
+      expect(page).to have_content 'Good job!'
+      expect(page).to have_content 'Keep it up!'
+      expect(page).to have_content 'Congratulations!'
     end
   end
 end
-
-# I can see the username of each commentor.
-# I can see the comment each commentor left.

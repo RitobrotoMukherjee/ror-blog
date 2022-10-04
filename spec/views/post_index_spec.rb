@@ -2,21 +2,21 @@ require 'rails_helper'
 RSpec.describe 'posts#index', type: :feature do
   describe 'Post spec' do
     before(:each) do
-      @user1 = User.create(name: 'Rito', photo: 'Tom.png', bio: 'bio', posts_counter: 0)
+      @user = User.create(name: 'Rito', photo: 'Tom.png', bio: 'bio', posts_counter: 0)
 
       @post1 = Post.create(title: 'First Post', text: 'This is my first post', comments_conter: 0, likes_counter: 0,
-                          author: @user1)
+                          author: @user)
       @post2 = Post.create(title: 'Second Post', text: 'This is my second post', comments_conter: 0, likes_counter: 0,
-                          author: @user1)
+                          author: @user)
       @post3 = Post.create(title: 'Third Post', text: 'This is my third post', comments_conter: 0, likes_counter: 0,
-                          author: @user1)
+                          author: @user)
 
       @comment1 = Comment.create(text: 'Good job!', author: User.first,
                                 post: Post.first)
       @comment2 = Comment.create(text: 'Keep it up!', author: User.first, post: Post.first)
       @comment3 = Comment.create(text: 'Congratulations!', author: User.first, post: Post.first)
 
-      visit(user_posts_path(@user1.id))
+      visit(user_posts_path(@user.id))
     end
 
     it "shows user's profile picture" do
