@@ -6,9 +6,9 @@ RSpec.describe 'user#Show', type: :feature do
       @user1 = User.create(name: 'Rito', photo: 'Tom.png', bio: 'bio', posts_counter: 0, email: 'rito@gmail.com',
                            password: 'password')
       @user2 = User.create(name: 'Tom', email: 'tom@gmail.com',
-        password: 'password' bio: 'bio', photo: 'Tom.png')
+                           password: 'password', bio: 'bio', photo: 'Tom.png')
       @user3 = User.create(name: 'Jerry', email: 'jerry@gmail.com',
-        password: 'password', bio: 'bio', photo: 'Tom.png')
+                           password: 'password', bio: 'bio', photo: 'Tom.png')
 
       visit root_path
       fill_in 'Email', with: 'rito@gmail.com'

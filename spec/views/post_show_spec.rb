@@ -2,7 +2,7 @@ require 'rails_helper'
 RSpec.describe 'post#show', type: :feature do
   describe 'post show page' do
     before(:each) do
-      @user = User.create(name: 'Rito', email: 'rito@gmail.com', password: 'password', 
+      @user = User.create(name: 'Rito', email: 'rito@gmail.com', password: 'password',
                           photo: 'Tom.png', bio: 'bio', posts_counter: 0)
 
       visit root_path
