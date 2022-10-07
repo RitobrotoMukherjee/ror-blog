@@ -18,6 +18,7 @@
 
 .form-holder {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1.5rem;
@@ -31,12 +32,13 @@
   border: 0.5em solid #646464;
   padding: 1em;
   margin: 0 auto;
+  width: 75%;
 }
 
 .input-item {
   padding: 0.8rem;
-  width: 90%;
   margin: 0.6rem auto;
+  border-radius: 1em;
 }
 
 .submit-button {
