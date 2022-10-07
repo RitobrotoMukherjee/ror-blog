@@ -8,9 +8,9 @@ class LikesController < ApplicationController
     )
 
     if like.save
-      redirect_to "/users/#{@post.author_id}/posts/#{@post.id}", notice: 'Success!'
+      redirect_to "/users/#{@post.author_id}/posts/#{@post.id}", flash: { alert: 'Your like has been saved' }
     else
-      redirect_to "/users/#{@post.author_id}/posts/#{@post.id}", alert: 'Error occured!'
+      redirect_to "/users/#{@post.author_id}/posts/#{@post.id}", flash.now[:error] = 'Can not save your like'
     end
   end
 end

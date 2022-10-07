@@ -12,8 +12,8 @@ Post.destroy_all
 User.destroy_all
 
 # User seeder
-user_1 = User.create!(name: 'Rito', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from WB.', posts_counter: 0)
-user_2 = User.create!(name: 'Joy', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Delhi.', posts_counter: 0)
+user_1 = User.create!(name: 'Rito', email: 'admin1@email.com', password: 'passowrd', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from WB.', posts_counter: 0)
+user_2 = User.create!(name: 'Joy', email: 'admin2@email.com', password: 'passowrd', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Delhi.', posts_counter: 0)
 
 p "Created #{User.count} Users"
 

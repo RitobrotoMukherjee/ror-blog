@@ -2,7 +2,13 @@ require 'rails_helper'
 RSpec.describe 'posts#index', type: :feature do
   describe 'Post spec' do
     before(:each) do
-      @user = User.create(name: 'Rito', photo: 'Tom.png', bio: 'bio', posts_counter: 0)
+      @user = User.create(name: 'Rito', email: 'rito@gmail.com', password: 'password',
+                          photo: 'Tom.png', bio: 'bio', posts_counter: 0)
+
+      visit root_path
+      fill_in 'Email', with: 'rito@gmail.com'
+      fill_in 'Password', with: 'password'
+      click_button 'Log in'
 
       @post1 = Post.create(title: 'First Post', text: 'This is my first post', comments_conter: 0, likes_counter: 0,
                            author: @user)
