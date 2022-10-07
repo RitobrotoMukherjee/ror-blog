@@ -15,3 +15,36 @@
  */
 @import "posts.css";
 @import "user.css";
+
+.form-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  width: 90%;
+}
+
+.form-blog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0.5em solid #646464;
+  padding: 1em;
+  margin: 0 auto;
+}
+
+.input-item {
+  padding: 0.8rem;
+  width: 90%;
+  margin: 0.6rem auto;
+}
+
+.submit-button {
+  background-color: #fff;
+  padding: 0.9em;
+  color: blue;
+  margin: 0.6rem auto;
+  border: 1px solid blue;
+  font-weight: 600;
+  border-radius: 1em;
+}
